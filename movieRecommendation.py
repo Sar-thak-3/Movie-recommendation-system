@@ -6,11 +6,6 @@ warnings.filterwarnings('ignore')
 columns_names = ['user_id', 'item_id','rating','timestamp']
 df = pd.read_csv('u.data' , sep='\t' , names=columns_names)
 
-# print(df.head())
-
-# print(df['user_id'].nunique())
-# print(df['item_id'].nunique())
-
 df2= pd.read_csv('u.item',encoding = "ISO-8859-1" , sep="\|" , header=None)
 # print(df2.head())
 movies_titles = df2[[0,1]]  #here 0,1 are columns name
@@ -18,7 +13,6 @@ movies_titles.columns = ['item_id','title']
 # print(movies_titles.head())
 
 merged = pd.merge(df , movies_titles , on='item_id')
-# print(merged.head())
 
 # Exploratory data analysis
 import matplotlib.pyplot as plt
@@ -29,25 +23,11 @@ sns.set_style('white')
 # print(merged.groupby('title').mean()['rating'].sort_values(ascending=False))
 
 # now cleaning of data -> as we do not want those movies which are only rated by 1 or very few people and got 5 rating because it might be incorrect data!
-# to check how much people watch 5 star rated movies
-
-
-# print(merged.groupby('title').count()['rating'])
+# to check how much people watch 5 star 
 
 ratings = pd.DataFrame(merged.groupby('title').mean()['rating'])
 ratings['number_of_ratings'] = pd.DataFrame(merged.groupby('title').count()['rating'])
 # as we get many movies withonly 1/2 reviews whivh can act as outliers
-print("ratings")
-print(ratings)
-# print(ratings.sort_values(by='rating' , ascending=False))
-
-# plt.figure(figsize=(10,6))
-# plt.hist(ratings['number_of_ratings'] , bins=70)
-# plt.show()
-# histogram we obtained shows Figure_1.png shows that 0-20 numbers of rating does not have any significance bcoz they are rated by very less people
-
-# plt.hist(ratings['rating'] , bins=70)
-# plt.show()
 
 sns.jointplot(x='rating' , y='number_of_ratings' , data=ratings , alpha=0.5)
 plt.show()
