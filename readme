@@ -1,0 +1,12 @@
+MOVIE RECOMMENDATION
+-> Content based recommendation system - focus on attributes of items. based on similarity b/w them
+if user 1 likes to buy apple,banana,orange
+if user 2 like to buy apple & orange
+if user 3 like to buy apple
+# this means apple & orange are so famous and we can recommend it to 4th user
+same type of products are recommended in this system!
+
+
+-> Collaborative filtering
+#it uses user's behaviour
+users similar to you if buy something then u may will also buy same thing
